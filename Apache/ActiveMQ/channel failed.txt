@@ -1,0 +1,20 @@
+Issue:
+
+Was getting the below error while trying to run a simple java application connecting to ActiveMQ on local machine.
+
+Caught: javax.jms.JMSException: Cannot send, channel has already failed: tcp://127.0.0.1:61616
+javax.jms.JMSException: Cannot send, channel has already failed: tcp://127.0.0.1:61616
+	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:72)
+	at org.apache.activemq.ActiveMQConnection.syncSendPacket(ActiveMQConnection.java:1413)
+	at org.apache.activemq.ActiveMQConnection.ensureConnectionInfoSent(ActiveMQConnection.java:1478)
+	at org.apache.activemq.ActiveMQConnection.start(ActiveMQConnection.java:527)
+	at activemq.poc.ActiveMQMain$AMQConsumer.run(ActiveMQMain.java:53)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.apache.activemq.transport.InactivityIOException: Cannot send, channel has already failed: tcp://127.0.0.1:61616
+	at org.apache.activemq.transport.AbstractInactivityMonitor.doOnewaySend(AbstractInactivityMonitor.java:328)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.oneway(AbstractInactivityMonitor.java:317)
+
+
+Resolution:
+
+Added the hawtbuf-1.11 jar from the ActiveMQ libraries to the classpath.
